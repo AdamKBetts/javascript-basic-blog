@@ -75,3 +75,10 @@ footer {
     color: #777;
     margin-top: 5px;
 }
+
+#posts .post-meta {
+    font-size: 0.8em;
+    color: #555;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}

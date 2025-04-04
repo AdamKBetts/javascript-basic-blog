@@ -2,8 +2,8 @@ const blogPosts = [
     {
         id: 1,
         title: "My First Blog Post",
-        author: "Your Name",
-        date: "April 3, 2025",
+        author: "Adam",
+        date: "April 1, 2025",
         content: `
             <p>This is the content of my very first blog post! I'm so excited to start this journey into software development and share my experiences here.</p>
             <p>I've been learning JavaScript for a while now, and I'm really enjoying it. It's amazing what you can build with just a few lines of code.</p>
@@ -18,7 +18,7 @@ const blogPosts = [
     {
         id: 2,
         title: "Learning About Functions in JavaScript",
-        author: "Your Name",
+        author: "Adam",
         date: "April 2, 2025",
         content: `
             <p>Today, I delved deeper into JavaScript functions. They are fundamental building blocks that allow us to write reusable code.</p>
@@ -37,8 +37,8 @@ const blogPosts = [
     {
         id: 3,
         title: "Exploring the DOM (Document Object Model)",
-        author: "Your Name",
-        date: "April 1, 2025",
+        author: "Adam",
+        date: "April 3, 2025",
         content: `
             <p>The Document Object Model (DOM) is a programming interface for web documents. It represents the page structure as a tree of objects, where each object represents a part of the document.</p>
             <p>JavaScript can interact with the DOM to dynamically change the content, structure, and style of a web page.</p>
@@ -67,10 +67,15 @@ blogPosts.forEach(post => {
     // Create a new list item for each post
     const listItem = document.createElement('li');
 
-    // Create an anchor tah to make the title clickable
+    // Create an anchor tag to make the title clickable
     const link = document.createElement('a');
     link.href = `#post-${post.id}`; // We'll use this to identify the post later
     link.textContent = post.title;
+
+    // Create an element to hold the author and date
+    const postMeta = document.createElement('p');
+    postMeta.classList.add('post-meta'); // Add a class for styling
+    postMeta.textContent = `By ${post.author} on ${post.date}`;
 
     // Create an element for the excerpt
     const excerpt = document.createElement('li');
@@ -79,6 +84,7 @@ blogPosts.forEach(post => {
 
     // Append the link to the list item
     listItem.appendChild(link);
+    listItem.appendChild(postMeta);
     listItem.appendChild(excerpt);
 
     // Append the list item to the ul element
