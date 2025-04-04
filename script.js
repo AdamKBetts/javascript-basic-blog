@@ -78,7 +78,7 @@ blogPosts.forEach(post => {
     postMeta.textContent = `By ${post.author} on ${post.date}`;
 
     // Create an element for the excerpt
-    const excerpt = document.createElement('li');
+    const excerpt = document.createElement('p');
     excerpt.classList.add('excerpt');
     excerpt.textContent = createExcerpt(post.content);
 
@@ -108,7 +108,7 @@ postsList.addEventListener('click', (event) => {
         if (post) {
             singlePostSection.innerHTML = `
             <h2>${post.title}</h2>
-            <p>By ${post.author} on ${post.date}</p>
+            <p class="post-meta">By ${post.author} on ${post.date}</p>
             <div class="post-content">${post.content}</div>
             `;
         }

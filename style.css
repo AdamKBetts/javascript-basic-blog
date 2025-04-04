@@ -29,9 +29,51 @@ main {
 #single-post {
     flex: 2;
     background-color: #fff;
-    padding: 15px;
+    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#single-post h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#single-post p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+#single-post ul, #single-post ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+#single-post li {
+    margin-bottom: 5px;
+}
+
+#single-post pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 15px;
+}
+
+#single-post code {
+    font-family: monospace, monospace;
+    font-size: 0.9em;
+    color: #222;
+}
+
+#single-post .post-meta {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 10px;
+    font-style: italic;
 }
 
 #posts ul {
@@ -57,19 +99,6 @@ main {
     text-decoration: underline;
 }
 
-#single-post h2 {
-    margin-top: 0;
-}
-
-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 1em;
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
-}
-
 #posts .excerpt {
     font-size: 0.9em;
     color: #777;
@@ -81,4 +110,17 @@ footer {
     color: #555;
     margin-top: 2px;
     margin-bottom: 5px;
+}
+
+.post-content {
+    margin-top: 10px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 1em;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
 }
