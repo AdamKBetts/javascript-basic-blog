@@ -49,6 +49,18 @@ const blogPosts = [
 
 // Get the ul element where we'll display the posts
 const postsList = document.getElementById('posts');
+const singlePostSection = document.getElementById('single-post');
+
+// Function to generate an excerpt from the content
+function createExcerpt(content, maxLength = 150) {
+    // Remove HTML tags from the content
+    const textContent = content.replace(/<[^>]*>/g, '');
+    // Trim the string to the maximum length and add an ellipsos if it's too long
+    return textContent.length > maxLength ? textContent.substring(0, maxLength) + '...' : textContent;
+}
+
+// Clear the existing list content
+postsList.innerHTML = '';
 
 // Loop through the blogPosts array
 blogPosts.forEach(post => {
@@ -60,14 +72,18 @@ blogPosts.forEach(post => {
     link.href = `#post-${post.id}`; // We'll use this to identify the post later
     link.textContent = post.title;
 
+    // Create an element for the excerpt
+    const excerpt = document.createElement('li');
+    excerpt.classList.add('excerpt');
+    excerpt.textContent = createExcerpt(post.content);
+
     // Append the link to the list item
     listItem.appendChild(link);
+    listItem.appendChild(excerpt);
 
     // Append the list item to the ul element
     postsList.appendChild(listItem);
 });
-
-const singlePostSection = document.getElementById('single-post');
 
 // Add an event listener to the ul element to handle clicks on the links
 postsList.addEventListener('click', (event) => {
