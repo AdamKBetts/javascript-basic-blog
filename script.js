@@ -98,77 +98,62 @@ const blogPosts = [
     }
 ];
 
-// Get the ul element where we'll display the posts
 const postsList = document.getElementById('posts');
 const singlePostSection = document.getElementById('single-post');
 
-// Function to generate an excerpt from the content
 function createExcerpt(content, maxLength = 150) {
-    // Remove HTML tags from the content
     const textContent = content.replace(/<[^>]*>/g, '');
-    // Trim the string to the maximum length and add an ellipsos if it's too long
     return textContent.length > maxLength ? textContent.substring(0, maxLength) + '...' : textContent;
 }
 
-// Clear the existing list content
-postsList.innerHTML = '';
+function renderBlogList(posts) {
+    postsList.innerHTML = '';
+    posts.forEach(post => {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `post-${post.id}`;
+        link.textContent = post.title;
 
-// Loop through the blogPosts array
-blogPosts.forEach(post => {
-    // Create a new list item for each post
-    const listItem = document.createElement('li');
+        const postMeta = document.createElement('p');
+        postMeta.classList.add('post-meta');
+        postMeta.textContent = `By ${post.author} on ${post.date}`;
 
-    // Create an anchor tag to make the title clickable
-    const link = document.createElement('a');
-    link.href = `#post-${post.id}`; // We'll use this to identify the post later
-    link.textContent = post.title;
+        const excerpt = document.createElement('p');
+        excerpt.classList.add('excerpt');
+        excerpt.textContent = createExcerpt(post.content);
 
-    // Create an element to hold the author and date
-    const postMeta = document.createElement('p');
-    postMeta.classList.add('post-meta'); // Add a class for styling
-    postMeta.textContent = `By ${post.author} on ${post.date}`;
+        listItem.appendChild(link);
+        listItem.appendChild(postMeta);
+        listItem.appendChild(excerpt);
+        postsList.appendChild(listItem);
+    });
+}
 
-    // Create an element for the excerpt
-    const excerpt = document.createElement('p');
-    excerpt.classList.add('excerpt');
-    excerpt.textContent = createExcerpt(post.content);
+function displaySinglePost(post) {
+    singlePostSection.innerHTML = `
+    <h2>${post.title}</h2>
+    <p class="post-meta">By ${post.author} on ${post.date}</p>
+    <div class="post-content">${post.content}</div>
+    <button id="back-to-posts">Back to Posts</button>
+    `;
 
-    // Append the link to the list item
-    listItem.appendChild(link);
-    listItem.appendChild(postMeta);
-    listItem.appendChild(excerpt);
+    const backToPostsButton = document.getElementById('back-to-posts');
+    backToPostsButton.addEventListener('click', () => {
+        singlePostSection.innerHTML = '';
+    });
+}
 
-    // Append the list item to the ul element
-    postsList.appendChild(listItem);
-});
+// Initial rendering of the blog list
+renderBlogList(blogPosts);
 
-// Add an event listener to the ul element to handle clicks on the links
+// Event listener for clicking on a blog post title
 postsList.addEventListener('click', (event) => {
-    // Check if the clicked element is an anchor tag
     if (event.target.tagName === 'A') {
-        // Prevent the default link behavior (jumping to the fragment identifier)
         event.preventDefault();
-
-        // Get the ID of the post from the href attribute
         const postId = parseInt(event.target.getAttribute('href').split('-')[1]);
-
-        // Find the corresponding blog post from the array
         const post = blogPosts.find(p => p.id === postId);
-
-        // If the post is found, dispay ts content
         if (post) {
-            singlePostSection.innerHTML = `
-            <h2>${post.title}</h2>
-            <p class="post-meta">By ${post.author} on ${post.date}</p>
-            <div class="post-content">${post.content}</div>
-            <button id="back-to-posts">Back to Posts</button>
-            `;
-
-            // Add an event listener to the "Back to Posts" button
-            const backToPostsButton = document.getElementById('back-to-posts');
-            backToPostsButton.addEventListener('click', () => {
-                singlePostSection.innerHTML = '';
-            });
+            displaySinglePost(post);
         }
     }
 });
